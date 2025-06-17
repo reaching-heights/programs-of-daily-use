@@ -1,0 +1,51 @@
+body{
+    display: flex;
+    align-items: center;
+    font-family: cursive;
+    padding-inline: 50px;
+    padding-block: 200px;
+}
+
+.dice-roll{
+    flex:2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.stats{
+    flex:1;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+}
+
+h1,h2{
+    text-align: center;
+}
+
+.rolling-img{
+    margin-block: 80px 30px;
+}
+
+.roll-btn button{
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    font-family: cursive;
+    background-color: lightblue;
+    font-size: large;
+    border-style: solid;
+    border-color: rgb(8, 162, 213);
+}
+
+.stat-result{
+    text-align:center;
+    font-size: large;
+}
+
+.reset{
+    width: 100px;
+    height: 50px;
+}
