@@ -19,6 +19,7 @@ body{
     flex-direction: column;
     align-items: center;
     height: 400px;
+    position: relative;
 }
 
 h1,h2{
@@ -45,7 +46,30 @@ h1,h2{
     font-size: large;
 }
 
+.reset,.another,.home{
+    padding: 10px 30px;
+    margin: 5px;
+    font-family: cursive;
+    background-color: rgb(0,0,0);
+    color: lightblue;
+}
+.reset:hover,.another:hover,.home:hover{
+    cursor: pointer;
+    background-color: rgb(24, 24, 24);
+}
 .reset{
-    width: 100px;
-    height: 50px;
+    position: absolute;
+    bottom: 10px;
+}
+.another{
+    position: absolute;
+    bottom: -60px;
+    left:10px;
+    right:10px
+}
+.home{
+    position: absolute;
+    bottom: -110px;
+    left:10px;
+    right:10px
 }
