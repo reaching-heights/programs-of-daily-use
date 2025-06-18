@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors Game With Images</title>
+        <style>            
+            body{
+                font-family: cursive;
+                font-size: x-large;
+                background-color: rgb(25,25,25);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            p{
+                cursor: default;
+            }
+            .title{
+                font-weight: bold;
+                font-size:xx-large;
+            }
+            .options{
+                display: flex;
+            }
+            .options div{
+                height: 150px;
+                width: 150px;
+                display: flex;
+               justify-content: center;
+               align-items: center;
+            }
+            .rps{
+                height: 60px;
+            }
+            button{
+                height: 100px;
+                width: 100px;
+                background-color: rgb(25, 25, 25);
+                font-family: cursive;
+                font-size: large;
+                color: white;
+                border-radius: 100px;
+                border-color: rgb(220, 138, 79);
+                cursor: pointer;
+                transition: height,width,margin 0.15s;
+                border-style: solid;
+            }
+            button:hover{
+                height: 120px;
+                width: 120px;
+            }
+            .reset{
+                width: 200px;
+                height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .reset button{
+                height: 150px;
+                width: 150px;
+            }
+            .reset button:hover{
+                width:170px;
+                height: 170px;
+            }
+            .your-result{
+                font-size: xx-large;
+            }
+        </style>
+    </head>
+    <body>
+        <p class="title">Select Rock Paper Scissors</p>
+        <div class="options">
+            <div>
+                <button onclick="cMove=genCompMove();
+                result=check('Rock',cMove);
+                display(result,'Rock',cMove,score);"><img class="rps" src="images/rock-emoji.png"></button>
+            </div>
+            <div>
+                <button onclick="cMove=genCompMove();
+                result=check('Paper',cMove);
+                display(result,'Paper',cMove,score);"><img class="rps" src="images/paper-emoji.png"></button> 
+            </div>
+            <div>
+                <button onclick="cMove=genCompMove();
+                result=check('Scissors',cMove);
+                display(result,'Scissors',cMove,score);"><img class="rps" src="images/scissors-emoji.png"></button>
+            </div>
+        </div> 
+        <div class="result">
+            <p class="your-result"></p>
+            <p class="moves"></p>
+            <p>Scores:</p>
+            <p class="score"></p>
+        </div>
+        <div class="reset">
+            <button onclick="score.wins=0;score.loses=0;score.draws=0;
+            localStorage.removeItem('score');
+            update();
+            document.querySelector('.moves').innerHTML='';
+            document.querySelector('.your-result').innerHTML='';">Reset Score</button>
+        </div>
+        <div class="reset">
+            <a href="ultimate-rps-game.html"><button>Simulator 1</button></a>
+        </div>
+        <div class="reset">
+            <a href="index.html"><button>Home</button></a>
+        </div>
+        <script>
+            let cMove='';
+            let result=9;
+            let score=JSON.parse(localStorage.getItem('score'))||{
+                    wins:0,loses:0,draws:0
+                };
+            update();
+            document.querySelector('.moves').innerHTML='';
+            document.querySelector('.your-result').innerHTML='';
+            function display(result,hMove,cMove,score){
+                update();
+                let perf='';
+                if(result==0)perf='Draw';
+                else if(result==1)perf='You Won';
+                else perf='You Lost';
+                document.querySelector('.your-result').innerHTML=perf;
+                document.querySelector('.moves').innerHTML=`Computer Move: ${cMove}, Human Move: ${hMove}`;
+            }
+            function check(move1,move2){
+                let result;
+                console.log('Player Move : '+move1);
+                if(move1==='Rock'){
+                    if(move2==='Rock')result=0;
+                    else if(move2==='Paper')result=-1;
+                    else result=1;
+                }
+                if(move1==='Paper'){
+                    if(move2==='Rock')result=1;
+                    else if(move2==='Paper')result=0;
+                    else result=-1;
+                }
+                if(move1==='Scissors'){
+                    if(move2==='Rock')result=-1;
+                    else if(move2==='Paper')result=1;
+                    else result=0;
+                }
+                if(result==1)score.wins++;
+                else if(result==0)score.draws++;
+                else score.loses++;
+                localStorage.setItem('score',JSON.stringify(score));
+                return result;
+            }
+            function genCompMove(){
+                const num= Math.random();
+                let cMove = '';
+                if(num>=0&&num<1/3)cMove='Rock';
+                else if(num>=1/3&&num<2/3)cMove='Paper';
+                else cMove='Scissors';
+                console.log('Computer Move : '+cMove);
+                return cMove;
+            }
+            function update(){
+                document.querySelector('.score').innerHTML=`Wins:${score.wins}, Loses:${score.loses}, Draws:${score.draws}`;
+            }
+        </script>
+    </body>
+</html>
+
+
+    

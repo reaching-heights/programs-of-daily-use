@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll Simulator</title>
+    <style>
+        body{
+            font-family: cursive;
+            text-align: center;
+            margin: 0px;
+        }
+        h1{
+            font-size: 3rem;
+            margin-top: 2rem;
+        }
+        .dice{
+            font-size: 7rem;
+            margin: 5px;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        .roll-animation{
+            animation-name: roll;
+        }
+        @keyframes roll{
+            0%{
+                transform: rotateY(0deg) rotateX(0deg);
+            }
+            100%{
+                transform: rotateY(720deg) rotateX(720deg);
+            }
+        }
+        button{
+            background-color: #47a5c4;
+            color: white;
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 1.5rem;
+            cursor: pointer;
+            transition: background-color .3s ease;
+        }
+
+        button:hover{
+            background-color: #2e8baf;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        li{
+            font-size: 1.5rem;
+            padding: .5rem;
+            margin: .5rem;
+            background-color: #f2f2f2;
+            border-radius: .5rem;
+            box-shadow: 0 2px 2px rgba(0,0,0,.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li span{
+            font-size: 3rem;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dice Roll Simulator</h1>
+    <div class="dice" id="dice">&#9860</div>
+    <button id="roll-dice">Roll Dice</button>
+    <ul id="roll-history">
+        <!-- <li>Roll 1: <span>&#9856</span></li>
+        <li>Roll 2: <span>&#9860</span></li> -->
+    </ul>
+    <a target="_blank" href="dice_roll_sim.html"><button>Simulator 1</button></a>    
+    <a target="_blank" href="index.html"><button>Home</button></a>
+    <script>
+        const buttonEl = document.getElementById('roll-dice');
+        const diceEl = document.getElementById('dice');
+        const rollHistoryEl = document.getElementById('roll-history');
+        const historyList= [];
+
+        buttonEl.addEventListener('click',()=>{
+            diceEl.classList.add('roll-animation');
+            setTimeout(()=>{
+                diceEl.classList.remove('roll-animation');
+            },1000);
+            rollDice();
+        });
+        function rollDice(){
+            const rollResult = Math.floor(Math.random()*6)+1;
+            const diceFace = getDiceFace(rollResult);
+            diceEl.innerHTML=diceFace;
+            historyList.push(rollResult);
+            updateRollHistory();
+        }
+        function updateRollHistory(){
+            rollHistoryEl.innerHTML='';
+            for(let i =historyList.length-1; i>=0;i--){
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `Roll ${i+1}: <span>${getDiceFace(historyList[i])}</span>`;
+                rollHistoryEl.appendChild(listItem);
+            }
+        }
+        function getDiceFace(roll){
+            switch(roll){
+                case 1: return '&#9856;';
+                case 2: return '&#9857;';
+                case 3: return '&#9858;';
+                case 4: return '&#9859;';
+                case 5: return '&#9860;';
+                case 6: return '&#9861;';
+                default: return '';
+            }
+        }
+    </script>
+</body>
+</html>

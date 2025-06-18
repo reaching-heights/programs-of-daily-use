@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 1000px;
+                background-color: black;
+                color: white;
+            }
+            input{
+                height: 40px;
+                width: 380px;
+                background-color: rgb(66, 66, 66);
+                border: none;
+                color: white;
+                margin-bottom: 40px;
+                font-size: large;
+                padding-inline: 10px;
+            }
+            .buttons{
+                display: grid;
+                grid-template-columns: 80px 80px 80px 80px 80px;
+                grid-template-rows: 80px 80px 80px 80px 80px 80px 80px;
+            }
+            .buttons div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            button{
+                height: 60px;
+                width: 60px;
+                border-radius: 30px;
+                border: 1px solid rgb(66, 66, 66);
+                background-color: rgb(66, 66, 66);
+                color: white;
+                font-size: larger;
+                cursor: pointer;
+            }
+            button:hover{
+                opacity: 0.8;
+            }
+            .orange{
+                color: orange;
+            }
+            button:disabled{
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+            .home{
+                margin: 20px;
+            }
+            .home button{
+                padding: 10px;
+                width: 200px;
+                font-weight: bold;
+                font-size: x-large;
+            }
+        </style>
+    </head>
+    <body>
+        <p style="font-size:xx-large">CALCULATOR</p>
+        <input type="text" placeholder="Enter the expression." onkeydown="if(event.key==='Enter')calc();">
+        <div class="buttons">
+            <div><button class="sec" onclick="inverse()">2nd</button></div>
+            <div><button class="deg-or-rad" onclick="change()">deg</button></div>
+            <div><button class="sin" onclick="input('sin')">sin</button></div>
+            <div><button class="cos" onclick="input('cos')">cos</button></div>
+            <div><button class="tan" onclick="input('tan')">tan</button></div>
+            <div><button onclick="add('^(')">x<sup>y</sup></button></div>
+            <div><button onclick="add('log10(')">lg</button></div>
+            <div><button onclick="add('log(')">ln</button></div>
+            <div><button onclick="add('(')">(</button></div>
+            <div><button onclick="add(')')">)</button></div>
+            <div><button onclick="add(')^0.5')">&radic;x</button></div>
+            <div><button class="orange" onclick="removeAll()">C</button></div>
+            <div><button class="orange" onclick="remove()">&#x232B;</button></div>
+            <div><button onclick="add('%')" class="orange">%</button></div>
+            <div><button onclick="add('/')" class="orange">/</button></div>
+            <div><button onclick="add('!')">x!</button></div>
+            <div><button onclick="add('7')">7</button></div>
+            <div><button onclick="add('8')">8</button></div>
+            <div><button onclick="add('9')">9</button></div>
+            <div><button onclick="add('x')" class="orange">x</button></div>
+            <div><button onclick="add('^(-1)')">1/x</button></div>
+            <div><button onclick="add('4')">4</button></div>
+            <div><button onclick="add('5')">5</button></div>
+            <div><button onclick="add('6')">6</button></div>
+            <div><button class="orange" onclick="add('-')">-</button></div>
+            <div><button onclick="add('π')">&pi;</button></div>
+            <div><button onclick="add('1')">1</button></div>
+            <div><button onclick="add('2')">2</button></div>
+            <div><button onclick="add('3')">3</button></div>
+            <div><button class="orange" onclick="add('+')">+</button></div>
+            <div><button class="orange">&#x21C4;</button></div>
+            <div><button onclick="add('e')">e</button></div>
+            <div><button onclick="add('0')">0</button></div>
+            <div><button onclick="add('.')">.</button></div>
+            <div><button onclick="calc();" class="orange">=</button></div>
+        </div>
+        <div class="home">
+            <a href="index.html"><button>Home</button></a>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/mathjs@12.4.1/lib/browser/math.js"></script>
+        <script>
+            math.import({sinD:(deg)=> math.sin(deg*Math.PI/180),
+                cosD:(deg)=> math.cos(deg*Math.PI/180),
+                tanD:(deg)=> math.tan(deg*Math.PI/180),
+                asinD:(deg)=> math.asin(deg)/Math.PI*180,
+                acosD:(deg)=> math.acos(deg)/Math.PI*180,
+                atanD:(deg)=> math.atan(deg)/Math.PI*180
+            });
+            let inputExp='';
+            let clicked=0;
+            function add(i)
+            {
+                document.querySelector('input').value+=i;
+                if(i==='sin('){
+                    if(document.querySelector('.deg-or-rad').innerText==='deg') inputExp+='sinD(';
+                    else inputExp+=i;
+                }
+                else if(i==='tan('){
+                    if(document.querySelector('.deg-or-rad').innerText==='deg') inputExp+='tanD(';
+                    else inputExp+=i;
+                }
+                else if(i==='cos('){
+                    if(document.querySelector('.deg-or-rad').innerText==='deg') inputExp+='cosD(';
+                    else inputExp+=i;
+                }
+                else if(i==='arcsin('){
+                    if(document.querySelector('.deg-or-rad').innerText==='deg') inputExp+='asinD(';
+                    else inputExp+='asin(';
+                }
+                else if(i==='arctan('){
+                    if(document.querySelector('.deg-or-rad').innerText==='deg') inputExp+='atanD(';
+                    else inputExp+='atan(';
+                }
+                else if(i==='arccos('){
+                    if(document.querySelector('.deg-or-rad').innerText==='deg') inputExp+='acosD(';
+                    else inputExp+='acos(';
+                }
+                else if(i==='π') inputExp+='pi';
+                else if(i==='x') inputExp+='*';
+                else inputExp+=i;
+            }
+            function calc(){
+                try{
+                    console.log(inputExp);
+                let result = math.evaluate(inputExp);
+                document.querySelector('input').value=result;
+                inputExp=result;}
+                catch(err){alert(err.message);}
+            }
+            function removeAll(){
+                document.querySelector('input').value='';
+                inputExp='';
+            }
+            function remove(){
+                let txt = document.querySelector('input').value;
+                document.querySelector('input').value=txt.slice(0,txt.length-1);
+                inputExp=txt.slice(0,txt.length-1);
+            }
+            function change(){
+                let txt = document.querySelector('.deg-or-rad');
+                if(txt.innerHTML==='deg') {txt.innerHTML='rad';
+                    document.querySelector('.sec').setAttribute('disabled',true);}
+                else {txt.innerHTML='deg';document.querySelector('.sec').removeAttribute('disabled',true);};
+            }
+            function inverse(){
+                console.log('yes');
+                clicked++;
+                if(clicked%2===0){
+                    document.querySelector('.deg-or-rad').removeAttribute('disabled',false);
+                    document.querySelector('.sin').innerHTML='sin';
+                    document.querySelector('.cos').innerHTML='cos';
+                    document.querySelector('.tan').innerHTML='tan';}
+                else {
+                    document.querySelector('.deg-or-rad').setAttribute('disabled',true);
+                    document.querySelector('.sin').innerHTML='sin<sup>-1</sup>';
+                    document.querySelector('.cos').innerHTML='cos<sup>-1</sup>';
+                    document.querySelector('.tan').innerHTML='tan<sup>-1</sup>';}
+            }
+            function input(i){
+                let tag=document.querySelector(`.${i}`).innerText;
+                if(tag === `${i}`){
+                    add(`${i}(`)
+                }
+                else add(`arc${i}(`)
+            }
+        </script>
+    </body>
+</html>
