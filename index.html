@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dice Roll Simulator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Home Page</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container{
+            padding: 10px 200px;
+            border: 1px solid lightblue;
+            border-radius: 30px;
+            background-color: lightblue;
+        }
+        .container:hover{
+            cursor: pointer;
+            background-color: rgb(189, 234, 249);
+        }
+    </style>
 </head>
 <body>
-    <div class="dice-roll">
-        <div>
-            <h1>Dice Roll Simulator</h1>
-        </div>
-        <div class="rolling-img js-img">
-        </div>
-        <div class="roll-btn">
-            <button class="js-roll-btn">Roll Dice</button>
-        </div>
-    </div>
-    <div class="stats">
-        <h2>Stats</h2>
-        <p class="js-stat-result stat-result"></p>
-        <button class="reset js-reset">Reset</button>
-    </div>
-    <script src="coding.js"></script>
+    <h1>What do you want to do</h1>
+    <div><a href="dice_roll_sim.html" target="_blank" rel="noopener noreferrer"><button class="container">Wanna roll a dice</button></a></div>
+        
 </body>
 </html>
